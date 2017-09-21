@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>canvas背景</title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			canvas{
+				display:block;
+				background:#000;
+			}
+		</style>
+	</head>
+	<body>
+	<canvas id="canvas">你的浏览器不支持canvas标签，请更改您的浏览器！！</canvas>
+	<script type="text/javascript">
+		var can = document.getElementById('canvas');
+		var ctx = can.getContext('2d');
+		var w = can.width = window.innerWidth;//把浏览器的宽赋值给画布的宽，驼峰标识
+		var h = can.height = window.innerHeight;//把浏览器的高赋值给画布的高，驼峰标识
+		window.onresize = function () {//监听浏览器窗口的变化；
+            w = can.width = window.innerWidth;
+            h = can.height = window.innerHeight;
+        }
+        /*//绘制圆型(x,y圆心坐标  r半径  0 math.PI*2  false 0~360 逆时针
+        ctx.beginPath();//开始路径；
+		ctx.arc(200,200,100,0,Math.PI*2,false);
+		ctx.fillStyle='red';//设置填充方法的颜色；
+		ctx.fill()//填充方法 绘制一个实心圆心*/
+
+
+
+		/*//绘制线条
+		ctx.beginPath();//开始路径；
+		ctx.moveTo(350,350);//把画笔移动在某个位置
+		ctx.lineTo(450,450);//绘制到xy坐标位置
+		ctx.lineTo(450,550);
+		ctx.closePath();//闭合路径
+		ctx.strokeStyle='white';//设置触笔方法的颜色；
+		ctx.stroke();//触笔方法*/
+
+		/*面向过程
+		面向对象
+		*/
+		var dots = [];//用来存储实例化对象
+//		创建圆形粒子类
+		function Dot(){
+		    //圆心坐标
+			this.x = Math.random()*w;
+			this.y= Math.random()*h;
+			this.vx = -0.5+Math.random();
+			this.vy = -0.5+Math.random();
+			this.r= Math.random()*5;
+			this.color = color1();
+//            console.log(this,1)//this指代当前实例化的对象
+
+		};
+//		给Dot原型添加方法，draw方法名自己定义
+        Dot.prototype.draw = function(){
+            ctx.beginPath();
+            ctx.fillStyle = this.color;
+            ctx.arc(this.x,this.y,this.r,0,Math.PI*2,false);
+            ctx.fill();
+            this.update();//更新坐标
+		}
+		//给Dot原型添加移动方法
+		Dot.prototype.update = function(){
+            if(this.x<0||this.x>w){
+                this.vx = -this.vx;//速度取反
+			}
+			if(this.y<0||this.y>h){
+                this.vy = -this.vy;
+			}
+            this.x += this.vx;
+            this.y +=this.vy;
+
+		}
+		//实例化圆形粒子
+
+		/*var dot = new Dot()
+		console.log(dot,2)
+		dot.draw();*/
+		for(var i=0;i<500;i++){
+		    dots.push(new Dot())
+		};
+//		console.log(dots)
+		function drawDots(){
+		    ctx.clearRect(0,0,w,h);//清空整个画布
+			for(var i=0,l=dots.length;i<l;i++){
+				dots[i].draw();
+			}
+        }
+        setInterval(drawDots,30);
+		function color1(){
+		    var r = Math.floor(Math.random()*256);
+		    var g = Math.floor(Math.random()*256);
+		    var b = Math.floor(Math.random()*256);
+		    return "rgb("+r+","+g+","+b+")";
+		}
+
+	</script>
+
+	</body>
+</html>

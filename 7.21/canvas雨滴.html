@@ -1,0 +1,128 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="keywords" content="关键词1，关键词2">
+<meta name="Description" content="描述">
+<title>canvas</title>
+<style>
+	*{
+		margin:0;
+		padding:0;
+	}	
+	canvas{
+		display:block;/*清除滚动条*/
+		background:#000;
+	}
+</style>
+</head>
+<body>
+   <canvas id="canvas"></canvas>
+   <script>
+	  var can = document.getElementById("canvas");
+	   var ctx = can.getContext("2d");
+	   var w = can.width = window.innerWidth;
+	   var h = can.height = window.innerHeight;	
+//	   监听窗口大小的改变
+	   window.onresize = function(){
+		   w = can.width = window.innerWidth;
+		   h = can.height = window.innerHeight;
+	   }
+/*////	   绘制矩形框
+	   ctx.fillStyle = "red";
+	   ctx.fillRect(55,55,200,200);
+//	   绘制圆形
+	   ctx.arc(400,400,50,Math.PI*2,false);
+	   ctx.fill();
+	   ctx.strokeStyle = "#fff";
+	   ctx.stroke();
+//	   canvas动画原理
+      ctx.fillStyle = "red"
+      var y = 0;
+       setInterval(function(){
+           ctx.clearRect(0,0,w,h);
+           y++;
+           ctx.fillRect(100,y,150,150);
+       },100);*/
+//js编程思维 面向过程  面向对象
+       //创建雨滴类
+       function Drop(){
+
+       }
+      Drop.prototype={
+           init : function(){//初始化雨滴对象
+               this.x = random(0,w);
+               this.y = 0;
+               this.vy = random(4,5);//y坐标下落的速度
+               this.maxh = random(0.8*h,0.9*h);
+               this.r = 1;
+               this.vr = 1;
+               this.a = 1;
+               this.va = 0.96;
+           },
+           draw : function(){
+               if(this.y>this.maxh){
+                   ctx.beginPath();
+                   ctx.arc(this.x,this.y,this.r,0,Math.PI*2,false);
+                   ctx.strokeStyle = "rgba(0,255,255,"+this.a+")";
+                   ctx.stroke();
+               }else{
+                   ctx.fillStyle = "#0ff";
+                   ctx.fillRect(this.x,this.y,2,10);
+               }
+
+               this.update();
+           },
+           update : function(){
+               if(this.y<this.maxh){
+                   this.y+=this.vy;
+               }else{
+                   if(this.a>0.03)
+                   {
+                       this.r +=this.vr;
+                       if(this.r>50){
+                           this.a *=this.va;
+                       }
+                   }else
+                   {
+                       this.init();
+                   }
+
+
+               }
+
+           }
+       }
+       //console.log(new drop())
+//      var dorp = new Drop();
+//       drop.init();
+//       dorp.draw();
+
+      var drops = [];
+       for(var i=0;i<30;i++){
+           (function(j){
+               setTimeout(function(){
+                   var drop = new Drop();
+                   drop.init();
+                   drops.push(drop);
+                   console.log(j);
+               },j*200)
+           }(i));
+       };
+       //console.log(drops);
+      function move(){
+          //ctx.clearRect(0,0,w,h);
+          ctx.fillStyle = "rgba(0,0,0,0.1)"
+          ctx.fillRect(0,0,w,h)
+          for(var i=0;i<drops.length;i++){
+              drops[i].draw();
+          }
+      };
+      setInterval(move,30)
+       //生成随机数
+       function random(min,max){
+           return Math.random()*(max-min)+min;
+       }
+	</script>
+</body>
+</html>

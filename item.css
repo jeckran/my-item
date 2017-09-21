@@ -1,0 +1,27 @@
+﻿/*@charset "utf-8"*/
+/* CSS Document */
+/*public*/
+*{margin:0;padding:0;}
+.clearfix{clear:both;}
+
+/*导航栏*/
+body{background-color:#ffffff}
+a{font-size:16px;color:#000}
+.nav_line{height:17px;width:1px;color:red;float:left;}
+.nav-tabs li a{font-size:17px;color:#000;}
+.nav_photo{color:red;font-size:12px;}
+/*banner*/
+
+
+/*备考*/
+.exam_bg{width:100%;height:1121px;background:#ffffff;}
+.exam_bt{width:1000px;height;176px;margin:0 auto;margin-bottom:58px;background: #fff url('imags/exam_bt.jpg') no-repeat center center;text-align:center; }
+.exam_bt p{font-size:47px;margin-top:56px;}
+.exam_bord{width:988px;height:877px;border:7px solid #e2e2e2;margin:0 auto;border-radius: 8px;}
+.exam_jjbg{background:#fff url("imags/exam_jj.jpg") no-repeat top center}
+.exam_jjie{border:2px solid #2d988b;border-radius:8px;margin: 46px 10px 0 10px;}
+.exam_jjie p{text-indent:2em;margin:18px;line-height:30px;font-size:16px;}
+.exam_zp{width:985px;height:105px;background-color:red;margin:0 auto;margin-top:48px;}
+.exam_zp p{font-size:29px;text-align:center;}
+.exam_xlyq{background-image:url('imags/exam_lc.jpg') no-repeat;}
+.exam_yljd
